@@ -1,13 +1,14 @@
+import { Roboto_300Light, Roboto_400Regular, Roboto_500Medium, Roboto_700Bold, useFonts } from '@expo-google-fonts/roboto';
+import AppLoading from 'expo-app-loading';
 import { StatusBar } from 'expo-status-bar';
-import { Dimensions, StyleSheet, View } from 'react-native';
-
+import { StyleSheet, View } from 'react-native';
 import { DefaultTheme, Provider as PaperProvider } from 'react-native-paper';
-
-import SignIn from './src/screens/SignIn';
+import Routes from './src/routes';
 
 const theme = {
   ...DefaultTheme,
   roundness: 2,
+  fontFamily: 'Roboto_400Regular',
   colors: {
     ...DefaultTheme.colors,
     primary: '#3498db',
@@ -16,10 +17,21 @@ const theme = {
 };
 
 export default function App() {
+  let [fontsLoaded] = useFonts({
+    Roboto_300Light,
+    Roboto_400Regular,
+    Roboto_500Medium,
+    Roboto_700Bold
+  });
+
+  if (!fontsLoaded) {
+    return <AppLoading />;
+  }
+
   return (
     <PaperProvider theme={theme}>
       <View style={styles.container}>
-        <SignIn />
+        <Routes />
         <StatusBar style="auto" />
       </View>
     </PaperProvider>
@@ -28,7 +40,6 @@ export default function App() {
 
 const styles = StyleSheet.create({
   container: {
-    height: Dimensions.get('window').height,
-    width: Dimensions.get('window').width,
+    flex: 1
   },
 });
