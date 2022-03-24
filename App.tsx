@@ -11,8 +11,8 @@ const theme = {
   fontFamily: 'Roboto_400Regular',
   colors: {
     ...DefaultTheme.colors,
-    primary: '#3498db',
-    accent: '#f1c40f',
+    primary: '#72c1e8',
+    accent: '#f0c020',
   },
 };
 

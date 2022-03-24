@@ -18,6 +18,10 @@ export const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center"
   },
+  logo: {
+    display: 'flex',
+    alignItems: 'center',
+  },
   inputs: {
     marginVertical: 30
   },
