@@ -9,11 +9,12 @@ interface ConsumeProps {
 };
 
 export default function Consume({ navigation }: ConsumeProps) {
-  const [state, setState] = useState({ jan: '', fev: '', mar: '', abr: '', jun: '', jul: '', ago: '', set: '', out: '', nov: '', dez: '' });
+  const [state, setState] = useState({ jan: '', fev: '', mar: '', abr: '', mai: '', jun: '', jul: '', ago: '', set: '', out: '', nov: '', dez: '' });
 
   const [error, setError] = useState({ state: false, msg: '' });
 
   const [checked, setChecked] = useState('bifásico');
+  const [checkedCircuito, setCheckedCircuito] = useState('s');
 
   const onPress = () => {
     const el = Object.values(state).filter(el => el == '');
@@ -27,9 +28,32 @@ export default function Consume({ navigation }: ConsumeProps) {
       setError({ state: false, msg: '' })
     }
 
+    let consume = 0;
+    let average = 0;
+    let irr = 1934.5;
+    let tax = checked === 'bifásico' ? 50 : 100;
+
+    Object.values(state).forEach(mes => {
+      consume += (+mes - tax);
+      console.log(mes, tax, consume)
+    });
+
+    average = Math.round(consume / 12);
+
+    let pfv = (consume / irr) / 0.85;
+    let pp = 330;
+    let qp = Math.ceil(pfv / pp);
+    let pfvi = (pfv * 0.75).toFixed(2);
+
+    let sistema = checked === 'bifásico' ? 'Bifásico' : 'Trifásico';
+    let circuito = checkedCircuito === 'p' ? 'Paralelo' : "Série";
+
     return (Alert.alert(
       "Consumo",
-      "Dados de consumo armazenandos, gerando relátorio..."
+      "Dados de consumo armazenandos, gerando relátorio...",
+      [
+        { text: "Ok", onPress: () => navigation.navigate('Report', { consume, average, pfv: pfv.toFixed(2), pfvi, pp, qp, sistema, circuito }) }
+      ]
     ))
   }
 
@@ -83,6 +107,17 @@ export default function Consume({ navigation }: ConsumeProps) {
           />
 
           <TextInput
+            label="Maio"
+            autoComplete={state.mai}
+            value={state.mai}
+            onChangeText={mai => setState(st => ({ ...st, mai }))}
+            style={styles.input}
+            autoCorrect={false}
+            mode='flat'
+            keyboardType="numeric"
+          />
+
+          <TextInput
             label="Junho"
             autoComplete={state.jun}
             value={state.jun}
@@ -94,7 +129,7 @@ export default function Consume({ navigation }: ConsumeProps) {
           />
 
           <TextInput
-            label="Junlho"
+            label="Julho"
             autoComplete={state.jul}
             value={state.jul}
             onChangeText={jul => setState(st => ({ ...st, jul }))}
@@ -159,6 +194,8 @@ export default function Consume({ navigation }: ConsumeProps) {
             keyboardType="numeric"
           />
 
+          <Text style={styles.textInfo}>Sistema:</Text>
+
           <View style={styles.radioContainer}>
             <RadioButton
               value="bifásico"
@@ -177,6 +214,28 @@ export default function Consume({ navigation }: ConsumeProps) {
               uncheckedColor="#fff"
             />
             <Text style={styles.label}>Trifásico</Text>
+          </View>
+
+          <Text style={styles.textInfo}>Circuito:</Text>
+
+          <View style={styles.radioContainer}>
+            <RadioButton
+              value="s"
+              status={checkedCircuito === 's' ? 'checked' : 'unchecked'}
+              onPress={() => setCheckedCircuito('s')}
+              uncheckedColor="#fff"
+            />
+            <Text style={styles.label}>Série</Text>
+          </View>
+
+          <View style={styles.radioContainer}>
+            <RadioButton
+              value="p"
+              status={checkedCircuito === 'p' ? 'checked' : 'unchecked'}
+              onPress={() => setCheckedCircuito('p')}
+              uncheckedColor="#fff"
+            />
+            <Text style={styles.label}>Paralelo</Text>
           </View>
 
           <HelperText type="error" visible={error.state} style={{ textAlign: 'center' }}>{error.msg}</HelperText>

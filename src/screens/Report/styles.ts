@@ -3,7 +3,7 @@ import { StyleSheet } from 'react-native';
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
-    marginVertical: 70,
+    marginTop: 70,
     marginHorizontal: 10,
     justifyContent: 'center'
   },
@@ -14,28 +14,27 @@ export const styles = StyleSheet.create({
     fontFamily: 'Roboto_300Light',
     marginBottom: 30
   },
-  input: {
-    marginBottom: 20
-  },
   image: {
     flex: 1,
     justifyContent: "center"
   },
-  button: {
-    paddingVertical: 10
-  },
-  radioContainer: {
-    flexDirection: "row",
-    alignItems: "center",
-    marginVertical: 8
+  wrapper: {
+    display: 'flex',
+    flexDirection: 'row',
+    marginVertical: 28,
+    alignItems: 'center'
   },
   label: {
-    color: '#fff',
-    fontSize: 18
+    fontWeight: 'bold',
+    fontSize: 20,
+    color: '#fff'
   },
-  textInfo: {
-    color: '#fff',
-    fontSize: 18,
-    fontWeight: 'bold'
+  info: {
+    fontSize: 20,
+    marginLeft: 10,
+    color: '#fff'
+  },
+  button: {
+    paddingVertical: 10
   },
 });

@@ -1,6 +1,6 @@
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import React, { useEffect, useState } from 'react';
-import { Image, ImageBackground, View } from 'react-native';
+import { ImageBackground, Text, View } from 'react-native';
 import { Button, HelperText, TextInput } from 'react-native-paper';
 import { styles } from './styles';
 
@@ -44,10 +44,7 @@ export default function SignIn({ navigation }: SignInProps) {
   return (
     <ImageBackground source={require("./../../assets/wallpaper4.jpg")} resizeMode="cover" style={styles.image}>
       <View style={styles.container}>
-        <View style={styles.logo}>
-          <Image source={require('./../../assets/logo2.png')} />
-        </View>
-        {/* <Text style={styles.title}></Text> */}
+        <Text style={styles.title}>Usina Solar</Text>
         <View style={styles.inputs}>
           <TextInput
             label="E-mail"
