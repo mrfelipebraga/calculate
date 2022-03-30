@@ -42,7 +42,7 @@ export default function Consume({ navigation }: ConsumeProps) {
 
     let pfv = (consume / irr) / 0.85;
     let pp = 330;
-    let qp = Math.ceil(pfv / pp);
+    let qp = Math.ceil((pfv * 1000) / pp);
     let pfvi = (pfv * 0.75).toFixed(2);
 
     let sistema = checked === 'bifásico' ? 'Bifásico' : 'Trifásico';
